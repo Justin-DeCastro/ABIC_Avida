@@ -9,5 +9,5 @@ class Lease extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image', 'name', 'description','contact','amenities','price'];
+    protected $fillable = ['image', 'name','location','description','contact','amenities','price','status'];
 }

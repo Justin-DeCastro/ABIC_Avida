@@ -16,7 +16,9 @@ class AppointmentController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'date' => 'required|date',
-            'transaction_type' => 'required|in:booking,check_inquiry,check_release',
+            'time' => 'required',
+            'message' => 'required',
+            'transaction_type' => 'required|in:booking,check_inquiry,check_release,viewing',
         ]);
 
         Appointment::create($validatedData);
@@ -39,28 +41,53 @@ class AppointmentController extends Controller
     $appointment->save();
 
     // Send email notification to the appointment holder
+    $time_formatted = date('h:i A', strtotime($appointment->time)); // Format time with AM/PM indication
+    $date_formatted = date('F j, Y', strtotime($appointment->date)); // Format date as "February 12, 2024"
     $data = [
-        'subject' => 'Good Day! MR/MS ' . $appointment->name . ', Your appointment on ' . $appointment->date . ' has been accepted. Thank You!',
+        'subject' => 'Good Day! MR/MS ' . $appointment->name . ', Your request  ' . ucfirst(str_replace('_', ' ', $appointment->transaction_type)) . ' on ' . $date_formatted . ' at ' . $time_formatted . ' has been accepted. Thank You!',
+
         'fullname' => $appointment->name,
-        'date' => $appointment->date,
-        'message' => '',
+        'date' => $date_formatted,
+        'message' => 'We look forward to seeing you on the requested day!',
     ];
+
+
 
     Mail::to($appointment->email)->send(new ContactMail($data));
 
     return redirect()->back()->with('success', 'Appointment accepted successfully.');
 }
 
-    public function cancelAppointment($id)
-    {
-        $appointment = Appointment::findOrFail($id);
+public function cancelAppointment($id)
+{
+    $appointment = Appointment::findOrFail($id);
 
-        // Perform actions to cancel appointment
-        $appointment->status = 'Canceled';
-        $appointment->save();
+    // Update the appointment status to "Canceled"
+    $appointment->status = 'Canceled';
+    $appointment->save();
 
-        return redirect()->back()->with('success', 'Appointment canceled successfully.');
-    }
+    // Format date and time
+    $time_formatted = date('h:i A', strtotime($appointment->time)); // Format time with AM/PM indication
+    $date_formatted = date('F j, Y', strtotime($appointment->date)); // Format date as "February 12, 2024"
+
+    // Reason for cancellation
+    $reason = 'We apologize for any inconvenience caused.';
+
+    // Send email notification to the appointment holder
+    $data = [
+        'subject' => 'Appointment Canceled',
+        'fullname' => $appointment->name,
+        'date' => $date_formatted,
+        'time' => $time_formatted,
+        'message' => 'Good Day! MR/MS ' . $appointment->name . ', Your appointment on ' . $date_formatted . ' at ' . $time_formatted . ' has been canceled. ' . $reason,
+
+    ];
+
+    Mail::to($appointment->email)->send(new ContactMail($data));
+
+    return redirect()->back()->with('success', 'Appointment canceled successfully.');
+}
+
 
     public function delete($appointment_id)
     {

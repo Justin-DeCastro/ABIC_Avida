@@ -250,7 +250,10 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Date</th>
-                                        <th>Transaction Type</th>
+                                        <th>Time</th>
+                                        <th style="width: 50px;">Transaction</th>
+                                        <th style="width: 70px;">Message</th>
+
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -267,24 +270,29 @@
                                             <td>{{ $appointment->name }}</td>
                                             <td>{{ $appointment->email }}</td>
                                             <td>{{ $appointment->date }}</td>
+                                            <td>{{ $appointment->time }}</td>
                                             <td>{{ $appointment->transaction_type }}</td>
+                                            <td>{{ $appointment->message }}</td>
+
                                             <td>{{ $appointment->status }}</td>
                                             <td>
                                                 <div class="action-buttons">
                                                     <form id="acceptForm{{ $appointment->id }}" action="{{ route('appointment.accept', $appointment->id) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('PUT')
-                                                        <button id="acceptButton{{ $appointment->id }}" type="submit" class="btn btn-success" onclick="disableButton('acceptButton{{ $appointment->id }}')">
+                                                        <button id="acceptButton{{ $appointment->id }}" type="submit" class="btn btn-success" style="width: 50px;" onclick="disableButton('acceptButton{{ $appointment->id }}')">
                                                             <i class="fas fa-check"></i> <!-- Font Awesome check icon -->
                                                         </button>
                                                     </form>
                                                     <form id="cancelForm{{ $appointment->id }}" action="{{ route('appointment.cancel', $appointment->id) }}" method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button id="cancelButton{{ $appointment->id }}" type="submit" class="btn btn-warning" onclick="disableButton('cancelButton{{ $appointment->id }}')">
+                                                        <button id="cancelButton{{ $appointment->id }}" type="submit" class="btn btn-warning" style="width: 50px;" onclick="disableButton('cancelButton{{ $appointment->id }}')">
                                                             <i class="fas fa-times"></i> <!-- Font Awesome times icon -->
                                                         </button>
                                                     </form>
+
+
 
 
 

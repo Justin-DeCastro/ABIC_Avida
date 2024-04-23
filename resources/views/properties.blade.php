@@ -1,5 +1,7 @@
 @include('layouts.properties.header')
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <body>,
     <script>
         gtag("event", "conversion", {
@@ -48,15 +50,54 @@
                         <div class="nav-item"><a href="/email/send/">Contact Us</a></div><button type="button"
                             class="nav-item burger">
                     </nav>
-                    <div class="search-section">
-                        <a class="btn btn-primary mr-2" data-toggle="modal" data-target="#bookModal">Book an
-                            Appointment</a>
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#loanCalculatorModal">Loan
-                            Calculator</a>
+
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                    <style>
+                        /* Override Bootstrap modal styles */
+                        .modal-content {
+                            background-color: #ffffff; /* Set background to white */
+                            border: none; /* Remove border */
+                        }
+                        .modal-body .btn {
+                            background-color: #007bff; /* Set background color of buttons */
+                            color: #ffffff; /* Set text color of buttons */
+                            margin-bottom: 10px; /* Add margin between buttons */
+                        }
+                        .modal-body .btn:hover {
+                            background-color: #0056b3; /* Change background color on hover */
+                        }
+                        /* Style for hamburger menu icon */
+                        .hamburger-icon {
+                            font-size: 20px;
+                        }
+                    </style>
+                </head>
+                <body>
+
+                <!-- Button to trigger combined modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#combinedModal">
+                    <i class="fas fa-bars hamburger-icon"></i> <!-- Hamburger menu icon -->
+                    Menu
+                </button>
+
+
+                <!-- Combined Modal -->
+                <div class="modal fade" id="combinedModal" tabindex="-1" role="dialog" aria-labelledby="combinedModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="combinedModalLabel">Select an Option</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#bookModal" data-dismiss="modal">Book Appointment</button>
+                                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#loanCalculatorModal" data-dismiss="modal">Loan Calculator</button>
+                                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#uploadPropertiesModal" data-dismiss="modal">Upload Properties</button>
+                            </div>
+                        </div>
                     </div>
-
-
-
                 </div>
         </div>
         </header>
@@ -1108,6 +1149,63 @@
                 </div>
             </div>
         </div>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Properties</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<body>
+
+<!-- Button to trigger modal -->
+
+
+<!-- Upload Properties Modal -->
+<div class="modal fade" id="uploadPropertiesModal" tabindex="-1" role="dialog" aria-labelledby="uploadPropertiesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadPropertiesModalLabel">Upload Properties</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to upload properties -->
+                <form action="{{ route('upload.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="text" class="form-control" id="price" name="price" required>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
         <script>
             // Prevent the form from submitting normally
             document.getElementById("appointmentForm").addEventListener("submit", function(event) {
@@ -1165,6 +1263,11 @@
                 }
             }
         </script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+         <!-- Font Awesome JS -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     </body>
 
     </html>

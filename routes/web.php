@@ -13,7 +13,14 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\LoanCalculatorController;
 use App\Http\Controllers\LeaseController;
-
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\SendPropertyController;
+use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\SentByUsersController;
+use App\Http\Controllers\BotManController;
+use App\Http\Controllers\LocalizationController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +33,13 @@ use App\Http\Controllers\LeaseController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+Route::get('/forsaleland', [HomeController::class, 'forsaleland'])->name('forsaleland');
+Route::get('/forleaseland', [HomeController::class, 'forleaseland'])->name('forleaseland');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/properties', [HomeController::class, 'properties'])->name('properties');
 Route::get('/Oneantonio', [HomeController::class, 'book'])->name('book');
 Route::get('/appointment', [HomeController::class, 'appointment'])->name('appointment');
@@ -96,6 +105,7 @@ Route::put('/sales/{id}', [SaleController::class, 'update'])->name('sales.update
 Route::delete('/sales/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');
 
 
+
 //
 Route::get('/viewsale{id}', [HomeController::class, 'viewsale'])->name('viewsale');
 
@@ -106,8 +116,8 @@ Route::post('/calculate', [LoanCalculatorController::class, 'calculate'])->name(
 //for lease
 Route::get('/lease', [LeaseController::class, 'index'])->name('lease.index');
 Route::post('/leases', [LeaseController::class, 'store'])->name('lease.store');
+// Route::put('/lease/{id}', [LeaseController::class, 'update'])->name('lease.update');
 Route::put('/lease/{id}', [LeaseController::class, 'update'])->name('lease.update');
-
 Route::delete('/lease/{lease}', [LeaseController::class, 'destroy'])->name('lease.destroy');
 
 
@@ -115,3 +125,54 @@ Route::delete('/lease/{lease}', [LeaseController::class, 'destroy'])->name('leas
 Route::get('/viewlease{id}', [HomeController::class, 'viewlease'])->name('viewlease');
 
 Route::get('/forlease', [HomeController::class, 'forlease'])->name('forlease');
+
+
+
+Route::get('/property/create', [PropertyController::class, 'create'])->name('property.create');
+
+
+Route::post('/property', [PropertyController::class, 'store'])->name('property.store');
+
+//upload\
+Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
+Route::get('/upload', [UploadController::class, 'index'])->name('upload.index');
+Route::post('/uploads/{id}/accept', [UploadController::class, 'accept'])->name('upload.accept');
+Route::post('/uploads/{id}/decline', [UploadController::class, 'decline'])->name('upload.decline');
+Route::get('/uploads/{id}', [UploadController::class,'show'])->name('uploads.show');
+
+
+Route::post('/filter-properties', function (Request $request) {
+    // Retrieve the name from the request
+    $name = $request->input('name');
+
+    // Redirect to the filter method of PropertyController with name data
+    return app()->make('App\Http\Controllers\PropertyController')->filter($name);
+})->name('property.filter.submit');
+
+//
+Route::get('/locale/{lange}',[LocalizationController::class, 'index']);
+Route::match(['get','post'],'/botman', [BotManController::class, 'handle']);
+Route::get('/greeting/{locale}', function (string $locale) {
+    if (! in_array($locale, ['en', 'es', 'fr'])) {
+        abort(400);
+    }
+
+    App::setLocale($locale);
+
+    // ...
+});
+
+//contact form
+Route::get('/contactform', [HomeController::class, 'contactform'])->name('contactform');
+
+//award
+Route::get('/award', [HomeController::class, 'award'])->name('award');
+Route::get('/awards', [HomeController::class, 'awardindex'])->name('award.index');
+Route::post('/awards', [HomeController::class, 'store'])->name('award.store');
+// Route::put('/lease/{id}', [LeaseController::class, 'update'])->name('lease.update');
+
+
+
+Route::put('/award/{id}', [HomeController::class, 'update'])->name('awards.update');
+
+Route::delete('award/{award}', [HomeController::class,'destroy'])->name('awards.delete');

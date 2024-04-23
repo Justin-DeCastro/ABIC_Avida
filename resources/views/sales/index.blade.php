@@ -228,11 +228,13 @@
                                 <thead>
                                     <tr>
                                         <th>Image</th>
-                                        <th>Name</th>
+                                        <th>Property Name</th>
+                                        <th>Location</th>
                                         <th>Description</th>
                                         <th>Price</th>
                                         <th>Amenities</th>
                                         <th>Contact Person</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -242,14 +244,17 @@
                                         <td><img src="{{ asset('images/sale/' . $sale->image) }}" alt="Sale Image" width="200"></td>
 
                                         <td>{{ $sale->name }}</td>
-                                        <td>{{ $sale->description }}</td>
+                                        <td>{{ $sale->location }}</td>
+                                        <td class="text-truncate" style="max-width:10px;">{{ $sale->description }}</td>
                                         <td>{{ $sale->price }}</td>
                                         <td>{{ $sale->amenities }}</td>
                                         <td>{{ $sale->contact }}</td>
+                                        <td>{{ $sale->status }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary update-btn" data-sale-id="{{ $sale->id }}" data-toggle="modal" data-target="#updateSaleModal{{ $sale->id }}">
                                                 Update
                                             </button>
+
                                             <button type="button" class="btn btn-danger delete-sale-btn" data-sale-id="{{ $sale->id }}" data-toggle="modal" data-target="#deleteSaleModal">
                                                 Delete
                                             </button>
@@ -271,7 +276,6 @@
 @foreach ($errors->all() as $error)
     <li>{{ $error }}</li>
 @endforeach
-
 <div class="modal fade" id="SaleModal" tabindex="-1" role="dialog" aria-labelledby="addSaleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -293,6 +297,10 @@
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location">
+                    </div>
+                    <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
@@ -304,11 +312,20 @@
                         <label for="contact">Contact</label>
                         <input type="number" class="form-control" id="contact" name="contact">
                     </div>
-
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" name="status">
+                    </div>
                     <div class="form-group">
                         <label for="amenities">Amenities</label>
-                        <input type="text" class="form-control" id="amenities" name="amenities">
+                        <select class="form-control" id="amenities" name="amenities">
+                            <option value="">Select Amenities</option>
+                            <option value="Parking">Parking</option>
+                            <option value="Swimming Pool">Swimming Pool</option>
+                            <option value="Basketball Court">Basketball Court</option>
+                        </select>
                     </div>
+
 
 
                     <!-- Add more form fields as needed -->
@@ -322,6 +339,55 @@
         </div>
     </div>
 </div>
+@foreach($sales as $sale)
+<div class="modal fade" id="updateSaleModal{{ $sale->id }}" tabindex="-1" role="dialog" aria-labelledby="updateSaleModalLabel{{ $sale->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateSaleModalLabel{{ $sale->id }}">Update Sale</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="updateSaleForm{{ $sale->id }}" action="{{ route('sales.update', ['id' => $sale->id]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $sale->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" value="{{ $sale->description }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" name="price" value="{{ $sale->price }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact</label>
+                        <input type="number" class="form-control" id="contact" name="contact" value="{{ $sale->contact }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="amenities">Amenities</label>
+                        <input type="text" class="form-control" id="amenities" name="amenities" value="{{ $sale->amenities }}">
+                    </div>
+                    <!-- Add more form fields as needed -->
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Button trigger modal -->
 
@@ -366,6 +432,8 @@
         padding: 10px; /* Adjust padding as needed */
     }
 </style>
+@foreach ($sales as $sale)
+
 
 <!-- Modal for Deleting Sale -->
 <div class="modal fade" id="deleteSaleModal" tabindex="-1" role="dialog" aria-labelledby="deleteSaleModalLabel" aria-hidden="true">
@@ -391,4 +459,4 @@
         </div>
     </div>
 </div>
-
+@endforeach

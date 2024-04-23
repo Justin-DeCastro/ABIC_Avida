@@ -127,8 +127,8 @@
     <div class="our-properties-search-result">
         <div class="our-properties-list-view">
             @foreach ($leases as $lease)
-            <a class="property-card-link" href="{{ route('viewlease', ['id' => $lease->id]) }}" data-toggle="property-card-detail">
-                <div class="property-card">
+            <div class="property-card">
+                <a class="property-card-link" href="{{ route('viewlease', ['id' => $lease->id]) }}" data-toggle="property-card-detail">
                     <div class="property-card-header"
                         style="background-image: url('{{ asset('images/lease/' . $lease->image) }}'); background-position: center; background-size: cover; position: relative;">
                     </div>
@@ -139,9 +139,12 @@
                         <p>{{ $lease->description }}</p>
                         <!-- Add additional details here if needed -->
                     </div>
-                </div>
-            </a>
-        @endforeach
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
 
 
 

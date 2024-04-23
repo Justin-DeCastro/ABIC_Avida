@@ -100,7 +100,15 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('upload.index') }}" class="nav-link">
+                    <i class="fas fa-building"></i>
 
+                    <p>Uploaded Properties
+                        <span class="badge badge-info right"></span>
+                    </p>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{ route('showprop') }}" class="nav-link">
 
@@ -117,6 +125,16 @@
                     <i class="nav-icon fas fa-building"></i>
                     <p>
                         Concept
+                        <span class="badge badge-info right"></span>
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('award.index') }}" class="nav-link">
+                    <i class="fas fa-award"></i>
+
+
+                    <p>Awards
                         <span class="badge badge-info right"></span>
                     </p>
                 </a>

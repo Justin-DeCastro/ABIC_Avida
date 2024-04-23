@@ -8,17 +8,77 @@ use App\Models\Concept;
 use App\Models\Amenity;
 use App\Models\Sale;
 use App\Models\Lease;
-
+use App\Models\Award;
 class HomeController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $sales = Sale::all();
+        $saleNames = $sales->pluck('name')->unique();
+
+        $leases = Lease::all(); // Corrected variable name
+        $leaseNames = $leases->pluck('name')->unique();
+
+        $names = $saleNames->merge($leaseNames)->unique(); // Merge and make unique
+
+        return view('home', compact('names'));
+    }
+
+    public function forsaleland()
+    {
+        $sales = Sale::all();
+        return view('forsale.land', compact('sales'));
+    }
+    public function forleaseland()
+    {
+        $leases = Lease::all();
+        return view('forlease.land', compact('leases'));
     }
     public function appointment()
     {
         return view('reserve');
     }
+    public function awardindex()
+    {
+        $awards = Award::all();
+        return view('award.index', compact('awards'));
+    }
+    public function destroy(Award $award)
+{
+    $award->delete();
+    return redirect()->back()->with('success', 'Award deleted successfully!');
+}
+
+    public function award()
+    {
+        $awards = Award::all();
+        return view('award.award', compact('awards'));
+    }
+    public function store(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'image' => 'required|image|max:20480',
+
+            'title' => 'required|string|max:255',
+
+        ]);
+
+        // Handle file upload
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images/award'), $imageName);
+
+        // Create a new Sale instance
+        $award = new Award();
+        $award->image = $imageName;
+        $award->title = $request->title;
+
+        $award->save();
+
+        // Redirect back or to a specific route
+        return redirect()->back()->with('success', 'Award created successfully!');
+    }
+
     public function forsale()
     {
         $sales = Sale::all();
@@ -58,6 +118,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('admin/index');
+    }
+    public function contactform()
+    {
+        return view('contact/home');
     }
 }
 

@@ -228,27 +228,32 @@
                                 <thead>
                                     <tr>
                                         <th>Image</th>
-                                        <th>Name</th>
+                                        <th>Property Name</th>
+                                        <th>Location</th>
                                         <th>Description</th>
                                         <th>Price</th>
                                         <th>Amenities</th>
                                         <th>Contact Person</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($lease as $lease)
+                                    @foreach($leases as $lease)
                                     <tr>
                                         <td><img src="{{ asset('images/lease/' . $lease->image) }}" alt="lease Image" width="80" height="80"></td>
                                         <td>{{ $lease->name }}</td>
+                                        <td>{{ $lease->location }}</td>
                                         <td>{{ $lease->description }}</td>
                                         <td>{{ $lease->price }}</td>
                                         <td>{{ $lease->amenities }}</td>
                                         <td>{{ $lease->contact }}</td>
+                                        <td>{{ $lease->status }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary update-btn" data-lease-id="{{ $lease->id }}" data-toggle="modal" data-target="#updateLeaseModal{{ $lease->id }}">
+                                            <button type="button" class="btn btn-primary update-btn" data-lease-id="{{ $lease->id }}" data-toggle="modal" data-target="#updateSaleModal{{ $lease->id }}">
                                                 Update
                                             </button>
+
                                             <button type="button" class="btn btn-danger delete-lease-btn" data-lease-id="{{ $lease->id }}" data-toggle="modal" data-target="#deleteLeaseModal{{ $lease->id }}">
                                                 Delete
                                             </button>
@@ -292,6 +297,10 @@
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location">
+                    </div>
+                    <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
@@ -308,7 +317,10 @@
                         <label for="amenities">Amenities</label>
                         <input type="text" class="form-control" id="amenities" name="amenities">
                     </div>
-
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" name="status">
+                    </div>
 
                     <!-- Add more form fields as needed -->
 
@@ -323,6 +335,59 @@
 </div>
 
 <!-- Button trigger modal -->
+@foreach($leases as $lease)
+<div class="modal fade" id="updateSaleModal{{ $lease->id }}" tabindex="-1" role="dialog" aria-labelledby="updateSaleModalLabel{{ $lease->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateSaleModalLabel{{ $lease->id }}">Update Sale</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="updateSaleForm{{ $lease->id }}" action="{{ route('lease.update', ['id' => $lease->id]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $lease->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" value="{{ $lease->description }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" name="price" value="{{ $lease->price }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact</label>
+                        <input type="number" class="form-control" id="contact" name="contact" value="{{ $lease->contact }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="number" class="form-control" id="status" name="status" value="{{ $lease->status }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="amenities">Amenities</label>
+                        <input type="text" class="form-control" id="amenities" name="amenities" value="{{ $lease->amenities }}">
+                    </div>
+                    <!-- Add more form fields as needed -->
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 
 <!-- Modal -->

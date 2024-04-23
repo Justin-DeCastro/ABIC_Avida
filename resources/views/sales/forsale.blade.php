@@ -127,31 +127,23 @@
     <div class="our-properties-search-result">
         <div class="our-properties-list-view">
             @foreach ($sales as $sale)
-                <a class="property-card-link" href="{{ route('viewsale', ['id' => $sale->id]) }}"
-                    data-toggle="property-card-detail">
+                <a href="{{ route('viewsale', ['id' => $sale->id]) }}" data-toggle="property-card-detail">
                     <div class="property-card">
-                        <div class="property-card-header"
-                            style="background-image: url('{{ asset('images/sale/' . $sale->image) }}'); background-position: center; background-size: cover; position: relative;">
-                            {{-- <p class="price-range">Price Range <br><span class="price-range-value">{{ $property->price }}</span></p> --}}
+                        <div class="property-card-header" style="background-image: url('{{ asset('images/sale/' . $sale->image) }}'); background-position: center; background-size: cover; position: relative;">
+                            <!-- Any content you want to place over the image can go here -->
                         </div>
+                    </a>
                         <div class="property-card-details">
-                            <div class="property-details">
-                                <h3>{{ $sale->name }}</h3>
-                            </div>
+                            <h3>{{ $sale->name }}</h3>
                             <p>{{ $sale->description }}</p>
-                            <div class="size">
-                                <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTJweCIgaGVpZ2h0PSIxMXB4IiB2aWV3Qm94PSIwIDAgMTIgMTEiIHZlcnNpb249IjEuMSIgCiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAKICB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPGcgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTc1LjAwMDAwMCwgLTQwMS4wMDAwMDApIiBmaWxsPSIjNTA1MDUwIiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNDUuMDAwMDAwLCAxMjEuMDAwMDAwKSI+CiAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsIDI2NC4wMDAwMDApIj4KICAgICAgICAgIDxwYXRoIGQ9Ik0zMCwxNy4yMjIyMjIyIEwzMCwxOS42NjY2NjY3IEwzMS4zMzMzMzMzLDE5LjY2NjY2NjcgTDMxLjMzMzMzMzMsMTcuMjIyMjIyMiBMMzQsMTcuMjIyMjIyMiBMMzQsMTYgTDMxLjMzMzMzMzMsMTYgQzMwLjYsMTYgMzAsMTYuNTUgMzAsMTcuMjIyMjIyMiBaIE0zMS4zMzMzMzMzLDIzLjMzMzMzMzMgTDMwLDIzLjMzMzMzMzMgTDMwLDI1Ljc3Nzc3NzggQzMwLDI2LjQ1IDMwLjYsMjcgMzEuMzMzMzMzMywyNyBMMzQsMjcgTDM0LDI1Ljc3Nzc3NzggTDMxLjMzMzMzMzMsMjUuNzc3Nzc3OCBMMzEuMzMzMzMzMywyMy4zMzMzMzMzIFogTTQwLjY2NjY2NjcsMjUuNzc3Nzc3OCBMMzgsMjUuNzc3Nzc3OCBMMzgsMjcgTDQwLjY2NjY2NjcsMjcgQzQxLjQsMjcgNDIsMjYuNDUgNDIsMjUuNzc3Nzc3OCBMNDIsMjMuMzMzMzMzMyBMNDAuNjY2NjY2NywyMy4zMzMzMzMzIEw0MC42NjY2NjY3LDI1Ljc3Nzc3NzggWiBNNDAuNjY2NjY2NywxNiBMMzgsMTYgTDM4LDE3LjIyMjIyMjIgTDQwLjY2NjY2NjcsMTcuMjIyMjIyMiBMNDAuNjY2NjY2NywxOS42NjY2NjY3IEw0MiwxOS42NjY2NjY3IEw0MiwxNy4yMjIyMjIyIEM0MiwxNi41NSA0MS40LDE2IDQwLjY2NjY2NjcsMTYgWiIgaWQ9IlNoYXBlIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgICA8L2c+CiAgICAgPC9nPgo8L3N2Zz4="
-                                    alt="unit icon">
-                            </div>
+
                         </div>
                     </div>
-                </a>
+
             @endforeach
-
-
         </div>
     </div>
-    </div>
+
     <section class="footer-section">
         <div class="footer-section-content" data-testid="footer-section-content">
             <div class="footer-background-image"></div>
