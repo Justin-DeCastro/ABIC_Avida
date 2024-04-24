@@ -109,26 +109,7 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('showprop') }}" class="nav-link">
 
-                    <i class="nav-icon fas fa-building"></i>
-                    <p>
-                        Properties
-                        <span class="badge badge-info right"></span>
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('concept') }}" class="nav-link">
-
-                    <i class="nav-icon fas fa-building"></i>
-                    <p>
-                        Concept
-                        <span class="badge badge-info right"></span>
-                    </p>
-                </a>
-            </li>
             <li class="nav-item">
                 <a href="{{ route('award.index') }}" class="nav-link">
                     <i class="fas fa-award"></i>
@@ -152,18 +133,19 @@
 
 
     <style>
-        .sidebar {
+    .sidebar {
     position: sticky;
     top: 0;
     width: 250px; /* Set the width as needed */
     max-width: 100%; /* Ensure it doesn't overflow horizontally */
-    height: 100; /* Adjust height as needed */
+    height: 750px; /* Adjust height as needed */
     overflow-y: auto;
     padding-top: 20px; /* Adjust padding as needed */
     padding-bottom: 20px; /* Adjust padding as needed */
     margin-top: 10px; /* Adjust margin as needed */
     margin-bottom: 10px; /* Adjust margin as needed */
 }
+
 
 .sidebar .nav-item a {
     font-size: 16px; /* Adjust font size as needed */

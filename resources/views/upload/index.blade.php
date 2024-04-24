@@ -229,6 +229,7 @@
                                     <tr>
                                         <th>ID Image</th>
                                         <th>Image</th>
+                                        <th>Video</th>
                                         <th>Customer Name</th>
                                         <th>Property Name</th>
                                         <th>Description</th>
@@ -252,7 +253,17 @@
                                     <tr>
                                         <td><img src="{{ asset('images/uploads/' . $upload->id_image) }}" alt="ID Image" width="200" onclick="previewImage('{{ asset('images/uploads/' . $upload->id_image) }}', 600)"></td>
 <td><img src="{{ asset('images/uploads/' . $upload->image_path) }}" alt="Uploads Image" width="200" onclick="previewImage('{{ asset('images/uploads/' . $upload->image_path) }}', 600)"></td>
-
+<td>
+    <!-- Display video if available -->
+    @if($upload->video_path)
+        <video width="200" controls>
+            <source src="{{ asset('videos/uploads/' . $upload->video_path) }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    @else
+        No video available
+    @endif
+</td>
                                     <td>{{ $upload->fullname }}</td>
                                         <td>{{ $upload->name }}</td>
                                         <td>{{ $upload->description }}</td>

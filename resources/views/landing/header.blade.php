@@ -87,57 +87,77 @@
                             <form action="{{ route('upload.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- First row -->
+                                    <!-- First row -->
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="fullname">Full Name:</label>
-                                            <input type="text" class="form-control" id="fullname" name="fullname" required placeholder="input your full name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Property Name:</label>
-                                            <input type="text" class="form-control" id="name" name="name" required placeholder="input your property name">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="price">Price:</label>
-                                            <input type="text" class="form-control" id="price" name="price" required placeholder="don`t use comma">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="description">Description:</label>
-                                            <textarea class="form-control" id="description" name="description" rows="3" required placeholder="input your description"></textarea>
+                                            <input type="text" class="form-control" id="fullname" name="fullname" required placeholder="Input your full name">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!-- Second row -->
+                                        <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name">Property Name:</label>
+                                            <input type="text" class="form-control" id="name" name="name" required placeholder="Input your property name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="price">Price:</label>
+                                            <input type="text" class="form-control" id="price" name="price" required placeholder="Don't use comma">
+                                        </div>
+                                    </div>
+
+                                    <!-- Second row -->
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="contact">Contact:</label>
-                                            <input type="text" class="form-control" id="contact" name="contact" required placeholder="input your contact number">
+                                            <input type="text" class="form-control" id="contact" name="contact" required placeholder="Input your contact number">
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="amenities">Amenities:</label>
-                                            <input type="text" class="form-control" id="amenities" name="amenities" required placeholder="input the amenities included">
+                                            <input type="text" class="form-control" id="amenities" name="amenities" required placeholder="Input the amenities included">
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="email">Email:</label>
-                                            <input type="email" class="form-control" id="email" name="email" required placeholder="input your email">
+                                            <input type="email" class="form-control" id="email" name="email" required placeholder="Input your email">
                                         </div>
+                                    </div>
+
+                                <!-- Third row -->
+
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="image_path">Image</label>
-                                            <input type="file" class="form-control" id="image_path" name="image_path" accept="image/*" required placeholder="input your ID">
+                                            <label for="image_path">Image:</label>
+                                            <input type="file" class="form-control" id="image_path" name="image_path" accept="image/*" required placeholder="Input your ID">
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="id_image">ID Image</label>
-                                            <input type="file" class="form-control" id="id_image" name="id_image" accept="image/*" required placeholder="input the property image">
+                                            <label for="id_image">ID Image:</label>
+                                            <input type="file" class="form-control" id="id_image" name="id_image" accept="image/*" required placeholder="Input the property image">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="video_path">Video:</label>
+                                            <input type="file" class="form-control" id="video_path" name="video_path" accept="video/*" required placeholder="Input the property video">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="description">Description:</label>
+                                            <textarea class="form-control" id="description" name="description" rows="3" required placeholder="Input your description"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
                         </div>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="modal fade" id="loanCalculatorModal" tabindex="-1" role="dialog" aria-labelledby="loanCalculatorModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
