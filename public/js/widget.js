@@ -2180,7 +2180,7 @@
             frameEndpoint: "/botman/chat",
             timeFormat: "HH:MM",
             dateTimeFormat: "m/d/yy HH:MM",
-            title: "AVIDA CS",
+            title: "AVIDA BOT",
             cookieValidInDays: 1,
             introMessage: "",
             placeholderText: "Say Hi...",

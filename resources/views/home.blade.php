@@ -115,7 +115,7 @@
                                     <i class="flaticon-rent text-success flat-medium" aria-hidden="true"></i>
                                     <h5 class="text-secondary hover-text-success py-3 m-0"><a href="#">Selling
                                             Service</a></h5>
-                                    <p>This is a dummy text for filling out spaces. Just some random words...</p>
+                                    <p>Unlock the potential of your assets! Our selling service streamlines the process, ensuring you get top value for your goods. Say goodbye to hassle, and hello to profit.</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
@@ -123,7 +123,7 @@
                                     <i class="flaticon-for-rent text-success flat-medium" aria-hidden="true"></i>
                                     <h5 class="text-secondary hover-text-success py-3 m-0"><a href="#">Rental
                                             Service</a></h5>
-                                    <p>This is a dummy text for filling out spaces. Just some random words...</p>
+                                    <p>Experience convenience like never before! Our rental service offers a wide range of options to suit your needs. From short-term stays to long leases, find your perfect match effortlessly</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
@@ -131,7 +131,7 @@
                                     <i class="flaticon-list text-success flat-medium" aria-hidden="true"></i>
                                     <h5 class="text-secondary hover-text-success py-3 m-0"><a href="#">Property
                                             Listing</a></h5>
-                                    <p>This is a dummy text for filling out spaces. Just some random words...</p>
+                                    <p>Discover your dream space! Our property listings feature a diverse range of options, from cozy apartments to spacious estates. Your ideal home awaits.</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
@@ -139,7 +139,7 @@
                                     <i class="flaticon-diagram text-success flat-medium" aria-hidden="true"></i>
                                     <h5 class="text-secondary hover-text-success py-3 m-0"><a href="#">Legal
                                             Investment</a></h5>
-                                    <p>This is a dummy text for filling out spaces. Just some random words...</p>
+                                    <p>Invest with confidence! Our legal investment services provide expert guidance and support, ensuring your investments are secure and profitable. Take the next step towards financial success today</p>
                                 </div>
                             </div>
                         </div>
@@ -218,8 +218,7 @@
                                             aria-hidden="true"></i>
                                         <div class="pl-2">
                                             <h5 class="mb-3">Top Rated</h5>
-                                            <p>This is a dummy text for filling out spaces. This is just a dummy text
-                                                for filling out blank spaces.</p>
+                                            <p>Join the ranks of the satisfied! Our top-rated services consistently receive glowing reviews and high ratings from delighted customers. Experience excellence firsthand.</p>
                                         </div>
                                     </li>
                                     <li class="mb-4 text-white d-flex">
@@ -227,8 +226,7 @@
                                             aria-hidden="true"></i>
                                         <div class="pl-2">
                                             <h5 class="mb-3">Experience Quality</h5>
-                                            <p>This is a dummy text for filling out spaces. This is just a dummy text
-                                                for filling out blank spaces.</p>
+                                            <p>Elevate your standards! Experience quality like never before with our premium services. From meticulous attention to detail to unparalleled customer satisfaction, excellence is our promise.</p>
                                         </div>
                                     </li>
                                     <li class="mb-4 text-white d-flex">
@@ -236,8 +234,7 @@
                                             aria-hidden="true"></i>
                                         <div class="pl-2">
                                             <h5 class="mb-3">Experienced Agents</h5>
-                                            <p>This is a dummy text for filling out spaces. This is just a dummy text
-                                                for filling out blank spaces.</p>
+                                            <p>Trust the experts! Our team of experienced agents brings years of industry knowledge and expertise to the table. With a proven track record of success, your journey is in capable hands.</p>
                                         </div>
                                     </li>
                                 </ul>

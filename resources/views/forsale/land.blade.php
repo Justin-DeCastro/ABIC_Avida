@@ -80,7 +80,7 @@
                                     </h5>
 
                             </p> <!-- Added Font Awesome icon for description -->
-                                    <i class="fas fa-dollar-sign" style="margin-left: 0"></i> Price: {{ $sale->price }}</p> <!-- Added Font Awesome icon for price -->
+                                    <i   style="margin-left: 0"></i> Price: {{ $sale->price }}</p> <!-- Added Font Awesome icon for price -->
                                     <!-- Add other sale details here -->
                                 </div>
                             </div>

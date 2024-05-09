@@ -1,4 +1,3 @@
-{{-- @extends('layouts.dynamicabout') --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +13,9 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css')}}">
 </head>
@@ -202,12 +204,32 @@
 {{--
 </body>
 </html> --}}
+<style>
+    /* Sticky table */
+    .card-body.table-responsive {
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: calc(100vh - 200px); /* Adjust the max-height according to your layout */
+    }
+
+    @media (min-width: 992px) {
+        .card-body.table-responsive {
+            max-height: calc(100vh - 260px); /* Adjust the max-height for larger screens */
+        }
+        /* Adjust action button alignment */
+        .action-buttons form {
+            display: inline-block; /* Display forms inline */
+            margin-right: 5px; /* Add some space between buttons */
+        }
+    }
+</style>
+
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Sell Here</h1>
+                    <h1>Awards Here</h1>
                 </div>
             </div>
         </div>
@@ -217,55 +239,49 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#SaleModal">
-                                Sell Here
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <table id="saleTable" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Property Name</th>
-                                        <th>Location</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Amenities</th>
-                                        <th>Contact Person</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($sales as $sale)
-                                    <tr>
-                                        <td><img src="{{ asset('images/sale/' . $sale->image) }}" alt="Sale Image" width="200"></td>
-
-                                        <td>{{ $sale->name }}</td>
-                                        <td>{{ $sale->location }}</td>
-                                        <td class="text-truncate" style="max-width:10px;">{{ $sale->description }}</td>
-                                        <td>{{ $sale->price }}</td>
-                                        <td>{{ $sale->amenities }}</td>
-                                        <td>{{ $sale->contact }}</td>
-                                        <td>{{ $sale->status }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary update-btn" data-sale-id="{{ $sale->id }}" data-toggle="modal" data-target="#updateSaleModal{{ $sale->id }}">
-                                                Update
-                                            </button>
-
-                                            <button type="button" class="btn btn-danger delete-sale-btn" data-sale-id="{{ $sale->id }}" data-toggle="modal" data-target="#deleteSaleModal">
-                                                Delete
-                                            </button>
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-
-                            </table>
-                        </div>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#SaleModal">
+                            Sell Here
+                        </button>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table id="appointmentTable" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Property Name</th>
+                                    <th>Location</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Amenities</th>
+                                    <th>Contact Person</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($sales as $sale)
+                                <tr>
+                                    <td><img src="{{ asset('images/sale/' . $sale->image) }}" alt="Sale Image" width="200"></td>
+                                    <td>{{ $sale->name }}</td>
+                                    <td>{{ $sale->location }}</td>
+                                    <td class="text-truncate" style="max-width: 100px;">{{ $sale->description }}</td>
+                                    <td>{{ $sale->price }}</td>
+                                    <td>{{ $sale->amenities }}</td>
+                                    <td>{{ $sale->contact }}</td>
+                                    <td>{{ $sale->status }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary update-btn" data-sale-id="{{ $sale->id }}" data-toggle="modal" data-target="#updateSaleModal{{ $sale->id }}">
+                                            Update
+                                        </button>
+                                        <button type="button" class="btn btn-danger delete-sale-btn" data-sale-id="{{ $sale->id }}" data-toggle="modal" data-target="#deleteSaleModal{{ $sale->id }}">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -389,24 +405,16 @@
 </div>
 @endforeach
 
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Include DataTables JavaScript -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-<!-- Initialize DataTables -->
 <script>
     $(document).ready(function() {
-        $('#saleTable').DataTable();
+        $('#appointmentTable').DataTable();
     });
 </script>
 
-<!-- Styles for DataTables -->
 <style>
     .dataTables_wrapper .dataTables_paginate .paginate_button {
         padding: 0.5rem;
@@ -427,36 +435,9 @@
         color: #6c757d;
         cursor: default;
     }
+
     .card-body {
         font-size: 14px; /* Adjust font size as needed */
         padding: 10px; /* Adjust padding as needed */
     }
 </style>
-@foreach ($sales as $sale)
-
-
-<!-- Modal for Deleting Sale -->
-<div class="modal fade" id="deleteSaleModal" tabindex="-1" role="dialog" aria-labelledby="deleteSaleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteSaleModalLabel">Delete Sale</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this sale?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form id="deleteSaleForm" action="{{ route('sales.destroy', $sale->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach

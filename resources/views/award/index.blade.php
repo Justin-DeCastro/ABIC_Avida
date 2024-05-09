@@ -1,4 +1,3 @@
-{{-- @extends('layouts.dynamicabout') --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +13,9 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css')}}">
 </head>
@@ -144,7 +146,7 @@
   </nav>
   <!-- /.navbar -->
 
- @include('layouts.sidebar.sidebar')
+ @extends('layouts.sidebar.sidebar')
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -202,6 +204,26 @@
 {{--
 </body>
 </html> --}}
+<style>
+    /* Sticky table */
+    .card-body.table-responsive {
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: calc(100vh - 200px); /* Adjust the max-height according to your layout */
+    }
+
+    @media (min-width: 992px) {
+        .card-body.table-responsive {
+            max-height: calc(100vh - 260px); /* Adjust the max-height for larger screens */
+        }
+        /* Adjust action button alignment */
+        .action-buttons form {
+            display: inline-block; /* Display forms inline */
+            margin-right: 5px; /* Add some space between buttons */
+        }
+    }
+</style>
+
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -217,22 +239,31 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AwardModal">
-                                Add Award
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <table id="LeaseTable" class="table table-bordered table-hover">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AwardModal">
+                            Add Award
+                        </button>
+                    </div>
+                        <div class="card-body table-responsive">
+                            <table id="appointmentTable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Image</th>
                                         <th>Title</th>
+                                        {{-- <th>Date</th>
+                                        <th>Time</th>
+                                        <th style="width: 50px;">Transaction</th>
+                                        <th style="width: 70px;">Message</th>
 
+                                        <th>Status</th> --}}
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
+
+
+
                                     @foreach($awards as $award)
                                     <tr>
                                         <td><img src="{{ asset('images/award/' . $award->image) }}" alt="lease Image" width="80" height="80"></td>
@@ -249,7 +280,6 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -297,25 +327,18 @@
         </div>
     </div>
 </div>
+</div>
 
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Include DataTables JavaScript -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-<!-- Initialize DataTables -->
 <script>
     $(document).ready(function() {
-        $('#leaseTable').DataTable();
+        $('#appointmentTable').DataTable();
     });
 </script>
 
-<!-- Styles for DataTables -->
 <style>
     .dataTables_wrapper .dataTables_paginate .paginate_button {
         padding: 0.5rem;
@@ -336,179 +359,9 @@
         color: #6c757d;
         cursor: default;
     }
+
     .card-body {
         font-size: 14px; /* Adjust font size as needed */
         padding: 10px; /* Adjust padding as needed */
     }
 </style>
-@foreach($awards as $award)
-<div class="modal fade" id="updateAwardModal{{ $award->id }}" tabindex="-1" role="dialog" aria-labelledby="updateAwardModalLabel{{ $award->id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateAwardModalLabel{{ $award->id }}">Update Alder</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form id="updateAwardForm{{ $award->id }}" action="{{ route('awards.update', ['id' => $award->id]) }}" method="POST" enctype="multipart/form-data">
-
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="award_id" value="{{ $award->id }}">
-                    <!-- Image Upload -->
-                    <div class="form-group">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control" id="image{{ $award->id }}" name="image" multiple accept="image/*">
-                    </div>
-                    <!-- Other fields for updating Alder details -->
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title{{ $award->id }}" name="title" value="{{ $award->title }}">
-                    </div>
-
-
-
-
-
-                    <!-- Add other fields here -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-
-
-        <!-- Delete Card Modal -->
-        @foreach($awards as $award)
-            <!-- Delete Button -->
-
-            <!-- Delete Modal -->
-            <div class="modal fade" id="deleteAwardModal{{ $award->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $award->id }}" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteAwardLabel{{ $award->id }}">Confirm Deletion</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <!-- Delete Form -->
-                            <form id="deleteForm{{ $award->id }}" action="{{ route('awards.delete', ['award' => $award->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button> <!-- Change button type to submit -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        @endforeach
-
-        <!-- JavaScript for handling delete via AJAX -->
-        <script>
-            function deleteAward(awardId) {
-                $.ajax({
-                    url: "{{ route('awards.delete', ['award' => $award->id]) }}",
-
-                    method: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        console.log('award deleted successfully');
-                        $('#deleteModal' + alderId).modal('hide'); // Close modal after successful delete
-                        location.reload(); // Reload the page
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error deleting card:', error);
-                    }
-                });
-            }
-        </script>
-<script>
-    function updateAward(awardId) {
-        var formData = new FormData($('#updateAwardForm' + awardId)[0]);
-        var url = "{{ route('awards.update', ['id' => ':awardId']) }}".replace(':awardId', awardId);
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Display success message on the page
-                $('#successMessage').text(response.message);
-                $('#successMessage').show(); // Show the success message div
-                // Optionally, you can hide the modal if needed
-                $('#updateAwardModal' + awardId).modal('hide');
-                // Optionally, you can reload the page after a delay
-                setTimeout(function() {
-                    location.reload();
-                }, 3000); // Reload after 3 seconds (3000 milliseconds)
-            },
-            error: function(xhr, status, error) {
-                console.error('Error updating Alder:', error);
-            }
-        });
-    }
-</script>
-
-
-
-
-
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <!-- DataTables JS -->
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-        <!-- Initialize DataTable -->
-        <script>
-            $(document).ready(function() {
-                $('#alderTable').DataTable();
-            });
-        </script>
-        <style>
-            .dataTables_wrapper .dataTables_paginate .paginate_button {
-                padding: 0.5rem;
-                margin: 0 0.2rem;
-                border-radius: 0.25rem;
-                cursor: pointer;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-            }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-                background-color: #0056b3;
-            }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-                background-color: #ced4da;
-                color: #6c757d;
-                cursor: default;
-            }
-        </style>

@@ -1,4 +1,3 @@
-{{-- @extends('layouts.dynamicabout') --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +13,9 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css')}}">
 </head>
@@ -202,12 +204,32 @@
 {{--
 </body>
 </html> --}}
+<style>
+    /* Sticky table */
+    .card-body.table-responsive {
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: calc(100vh - 200px); /* Adjust the max-height according to your layout */
+    }
+
+    @media (min-width: 992px) {
+        .card-body.table-responsive {
+            max-height: calc(100vh - 260px); /* Adjust the max-height for larger screens */
+        }
+        /* Adjust action button alignment */
+        .action-buttons form {
+            display: inline-block; /* Display forms inline */
+            margin-right: 5px; /* Add some space between buttons */
+        }
+    }
+</style>
+
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List Of Uploaded Properties by User</h1>
+                    <h1>User Property Upload</h1>
                 </div>
             </div>
         </div>
@@ -217,30 +239,26 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#SaleModal">
-                                Sell Here
-                            </button> --}}
-                        </div>
-                        <div class="card-body">
-                            <table id="saleTable" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID Image</th>
-                                        <th>Image</th>
-                                        <th>Video</th>
-                                        <th>Customer Name</th>
-                                        <th>Property Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Contact</th>
-                                        <th>Amenities</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+
+                    <div class="card-body table-responsive">
+                        <table id="appointmentTable" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID Image</th>
+                                    <th>Image</th>
+                                    <th>Video</th>
+                                    <th>Customer Name</th>
+                                    <th>Property Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Contact</th>
+                                    <th>Amenities</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <div id="imagePreviewModal" class="modal">
                                     <span class="close" onclick="closeModal()">&times;</span>
                                     <img id="previewImage" class="modal-content" style="width: 100px;">
@@ -251,8 +269,12 @@
                                   <tbody>
                                     @foreach($uploads as $upload)
                                     <tr>
-                                        <td><img src="{{ asset('images/uploads/' . $upload->id_image) }}" alt="ID Image" width="200" onclick="previewImage('{{ asset('images/uploads/' . $upload->id_image) }}', 600)"></td>
+                                        <td><img src="{{ asset('images/uploads/' . $upload->id_image) }}" alt="ID Image" width="200" height="120" onclick="previewImage('{{ asset('images/uploads/' . $upload->id_image) }}', 600)">
+                                        </td>
 <td><img src="{{ asset('images/uploads/' . $upload->image_path) }}" alt="Uploads Image" width="200" onclick="previewImage('{{ asset('images/uploads/' . $upload->image_path) }}', 600)"></td>
+
+
+
 <td>
     <!-- Display video if available -->
     @if($upload->video_path)
@@ -285,12 +307,7 @@
                                     </tr>
                                     @endforeach
                                   </tbody>
-
-                                <!-- Add this script to enable image preview -->
-
-
-                            </table>
-                        </div>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -301,6 +318,45 @@
 @foreach ($errors->all() as $error)
     <li>{{ $error }}</li>
 @endforeach
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#appointmentTable').DataTable();
+    });
+</script>
+
+<style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.5rem;
+        margin: 0 0.2rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #0056b3;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+        background-color: #ced4da;
+        color: #6c757d;
+        cursor: default;
+    }
+
+    .card-body {
+        font-size: 14px; /* Adjust font size as needed */
+        padding: 10px; /* Adjust padding as needed */
+    }
+</style>
 <script>
     // Function to display image preview modal
     function previewImage(imageUrl, size) {
@@ -373,51 +429,3 @@
         background-color: #d32f2f; /* Darker red */
     }
     </style>
-
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Include DataTables JavaScript -->
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-<!-- Initialize DataTables -->
-<script>
-    $(document).ready(function() {
-        $('#uploadTable').DataTable();
-    });
-</script>
-
-<!-- Styles for DataTables -->
-<style>
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        padding: 0.5rem;
-        margin: 0 0.2rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        background-color: #0056b3;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-        background-color: #ced4da;
-        color: #6c757d;
-        cursor: default;
-    }
-    .card-body {
-        font-size: 14px; /* Adjust font size as needed */
-        padding: 10px; /* Adjust padding as needed */
-    }
-</style>
-
-<!-- Modal for Deleting Sale -->
-
-

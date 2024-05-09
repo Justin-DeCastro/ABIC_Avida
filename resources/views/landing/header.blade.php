@@ -23,7 +23,7 @@
                                 <button class="neo-button" onclick="window.open('https://www.facebook.com/tine.tainy')">
                                     <i class="fa fa-facebook fa-2x"></i>
                                 </button>
-                                <button class="neo-button" onclick="window.open('https://www.instagram.com/jmdec21)">
+                                <button class="neo-button" onclick="window.open('https://www.instagram.com/jmdec21')">
                                     <i class="fa fa-instagram fa-2x"></i>
                                 </button>
 
@@ -34,6 +34,9 @@
                                 </a>
                                 <button class="neo-button" onclick="window.open('https://web.telegram.org/k/#5645362073')">
                                     <i class="fa fa-telegram fa-2x"></i>
+                                </button>
+                                <button class="neo-button" onclick="window.location.href = '/login'">
+                                    <i class="fa fa-sign-in fa-2x"></i>
                                 </button>
 
 
@@ -159,122 +162,123 @@
                         </div>
 
 
-            <div class="modal fade" id="loanCalculatorModal" tabindex="-1" role="dialog" aria-labelledby="loanCalculatorModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="loanCalculatorModalLabel">Loan Calculator</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form id="loan-form" class="form-inline">
-                                <div class="form-group">
-                                    <label for="loan_amount">Loan Amount:</label>
-                                    <input type="text" class="form-control col-sm-8" id="loan_amount" name="loan_amount" required>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label for="interest_rate">Interest Rate:</label>
-                                    <select class="form-control" id="interest_rate" name="interest_rate">
-                                        <option value="0.05">5%</option>
-                                        <option value="0.06">6%</option>
-                                        <option value="0.07">7%</option>
-                                        <option value="0.08">8%</option>
-                                        <option value="0.09">9%</option>
-                                        <option value="0.1">10%</option>
-                                        <option value="0.11">11%</option>
-                                        <option value="0.12">12%</option>
-                                        <option value="0.13">13%</option>
-                                        <option value="0.14">14%</option>
-                                    </select>
-
-                                </div>
-
-
-
-                                <button type="submit" class="btn btn-primary" style="margin-left: 1rem;">Calculate</button>
-                            </form>
-                            <br>
-                            <div class="result" id="results">
-                                <h2>Results</h2>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Months</th>
-                                            <th>Monthly Payment</th>
-                                            <th>Total Payment</th>
-                                            <th>Total Interest</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="results-body">
-                                        <!-- Result rows will be appended here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <style>
-                /* Styles for modal */
-            </style>
-
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('#loan_amount').on('input', function () {
-                        // Remove existing commas and spaces from the input value
-                        var value = $(this).val().replace(/[, ]/g, '');
-                        // Add commas every three digits
-                        $(this).val(value.replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-                    });
-                });
-
-                document.getElementById('loan-form').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    calculateLoan();
-                });
-
-                function formatCurrency(amount) {
-                    // Add comma separators for thousands and round to 2 decimal places
-                    return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                }
-
-                function calculateLoan() {
-                    // Parse the loan amount value and remove commas
-                    const loanAmount = parseFloat(document.getElementById('loan_amount').value.replace(/,/g, ''));
-                    const interestRate = parseFloat(document.getElementById('interest_rate').value);
-                    const loanTerm = 12; // Fixed to 12 for simplicity
-
-                    const monthlyInterestRate = interestRate / 12;
-                    const resultsBody = document.getElementById('results-body');
-                    resultsBody.innerHTML = ''; // Clear previous results
-
-                    for (let months of [12, 18, 24, 30, 36]) {
-                        const x = Math.pow(1 + monthlyInterestRate, months);
-                        const monthlyPayment = (loanAmount * x * monthlyInterestRate) / (x - 1);
-                        const totalPayment = monthlyPayment * months;
-                        const totalInterest = totalPayment - loanAmount;
-
-                        // Create and append table row
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${months}</td>
-                            <td>₱${formatCurrency(monthlyPayment)}</td>
-                            <td>₱${formatCurrency(totalPayment)}</td>
-                            <td>₱${formatCurrency(totalInterest)}</td>`;
-                        resultsBody.appendChild(row);
-                    }
-                }
-            </script>
-
-
 
 
 
         </header>
+        <div class="modal fade" id="loanCalculatorModal" tabindex="-1" role="dialog" aria-labelledby="loanCalculatorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loanCalculatorModalLabel">Loan Calculator</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loan-form" class="form-inline">
+                            <div class="form-group">
+                                <label for="loan_amount">Loan Amount:</label>
+                                <input type="text" class="form-control col-sm-8" id="loan_amount" name="loan_amount" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="interest_rate">Interest Rate:</label>
+                                <select class="form-control" id="interest_rate" name="interest_rate">
+                                    <option value="0.05">5%</option>
+                                    <option value="0.06">6%</option>
+                                    <option value="0.07">7%</option>
+                                    <option value="0.08">8%</option>
+                                    <option value="0.09">9%</option>
+                                    <option value="0.1">10%</option>
+                                    <option value="0.11">11%</option>
+                                    <option value="0.12">12%</option>
+                                    <option value="0.13">13%</option>
+                                    <option value="0.14">14%</option>
+                                </select>
+
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-primary" style="margin-left: 1rem;">Calculate</button>
+                        </form>
+                        <br>
+                        <div class="result" id="results">
+                            <h2>Results</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Months</th>
+                                        <th>Monthly Payment</th>
+                                        <th>Total Payment</th>
+                                        <th>Total Interest</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-body">
+                                    <!-- Result rows will be appended here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            /* Styles for modal */
+        </style>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#loan_amount').on('input', function () {
+                    // Remove existing commas and spaces from the input value
+                    var value = $(this).val().replace(/[, ]/g, '');
+                    // Add commas every three digits
+                    $(this).val(value.replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                });
+            });
+
+            document.getElementById('loan-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                calculateLoan();
+            });
+
+            function formatCurrency(amount) {
+                // Add comma separators for thousands and round to 2 decimal places
+                return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            function calculateLoan() {
+                // Parse the loan amount value and remove commas
+                const loanAmount = parseFloat(document.getElementById('loan_amount').value.replace(/,/g, ''));
+                const interestRate = parseFloat(document.getElementById('interest_rate').value);
+                const loanTerm = 12; // Fixed to 12 for simplicity
+
+                const monthlyInterestRate = interestRate / 12;
+                const resultsBody = document.getElementById('results-body');
+                resultsBody.innerHTML = ''; // Clear previous results
+
+                for (let months of [12, 18, 24, 30, 36]) {
+                    const x = Math.pow(1 + monthlyInterestRate, months);
+                    const monthlyPayment = (loanAmount * x * monthlyInterestRate) / (x - 1);
+                    const totalPayment = monthlyPayment * months;
+                    const totalInterest = totalPayment - loanAmount;
+
+                    // Create and append table row
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${months}</td>
+                        <td>₱${formatCurrency(monthlyPayment)}</td>
+                        <td>₱${formatCurrency(totalPayment)}</td>
+                        <td>₱${formatCurrency(totalInterest)}</td>`;
+                    resultsBody.appendChild(row);
+                }
+            }
+        </script>
+
+
+
         <div id="loader"></div>
         <script>
             var botman = botmanInit();
@@ -310,6 +314,9 @@
         </script>
 <style>
 
+
+
+
     .social-buttons{
     margin: 8px;
     display: flex;
@@ -320,6 +327,34 @@
 .social-buttons button{
 
     margin-right:10px;
+}
+
+.login-icon {
+    display: inline-block;
+    padding: 8px;
+    background-color: #007bff; /* Adjust color as needed */
+    color: #fff; /* Adjust text color as needed */
+    text-decoration: none;
+    border-radius: 50%; /* To make it circular */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.login-icon:hover {
+    background-color: #0056b3; /* Adjust hover color as needed */
+}
+.neo-button.sign-in {
+  background-color: #3498db; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove button border */
+  padding: 10px 20px; /* Button padding */
+  font-size: 16px; /* Button text size */
+  cursor: pointer; /* Show pointer on hover */
+  border-radius: 5px; /* Button border radius */
+}
+
+.neo-button.sign-in:hover {
+  background-color: #2980b9; /* Button background color on hover */
+  margin-top: 50px; /* Margin top on hover */
 }
 
 .neo-button{

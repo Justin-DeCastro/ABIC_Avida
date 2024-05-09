@@ -18,7 +18,9 @@ use App\Http\Controllers\SendPropertyController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SentByUsersController;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\FinancingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -36,10 +38,28 @@ use Illuminate\Support\Facades\App;
 // Route::get('/', function () {
 //     return view('home');
 // });
+// Login routes
+// Route::get('/logins', [AuthController::class,'showLoginForm'])->name('login');
+
+// Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class,'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class,'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard')->middleware('auth');
+
+// Registration routes
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class,'register']);
+Route::get('/forgot', [AuthController::class, 'forgot'])->name('forgot');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset.password');
+
 Route::get('/forsaleland', [HomeController::class, 'forsaleland'])->name('forsaleland');
 Route::get('/forleaseland', [HomeController::class, 'forleaseland'])->name('forleaseland');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+
 Route::get('/properties', [HomeController::class, 'properties'])->name('properties');
 Route::get('/Oneantonio', [HomeController::class, 'book'])->name('book');
 Route::get('/appointment', [HomeController::class, 'appointment'])->name('appointment');
@@ -176,3 +196,16 @@ Route::post('/awards', [HomeController::class, 'store'])->name('award.store');
 Route::put('/award/{id}', [HomeController::class, 'update'])->name('awards.update');
 
 Route::delete('award/{award}', [HomeController::class,'destroy'])->name('awards.delete');
+
+
+//logoutzzzzzzzzzzzzzzzzzzzzzz
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//financing
+Route::get('/financing', [FinancingController::class, 'index'])->name('financing.index');
+Route::post('/financing', [FinancingController::class, 'store'])->name('financing.store');
+Route::get('/financing/{id}', [FinancingController::class, 'show'])->name('financing.show');
+Route::put('/financing/{id}', [FinancingController::class, 'update'])->name('financing.update');
+
+
+Route::delete('/financing/{id}', [FinancingController::class, 'destroy'])->name('financing.destroy');

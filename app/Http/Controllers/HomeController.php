@@ -9,10 +9,14 @@ use App\Models\Amenity;
 use App\Models\Sale;
 use App\Models\Lease;
 use App\Models\Award;
+use App\Models\Upload;
+use App\Models\User;
 class HomeController extends Controller
 {
+
     public function home()
     {
+        $uploads= Upload::all();
         $sales = Sale::all();
         $saleNames = $sales->pluck('name')->unique();
 
@@ -21,7 +25,7 @@ class HomeController extends Controller
 
         $names = $saleNames->merge($leaseNames)->unique(); // Merge and make unique
 
-        return view('home', compact('names'));
+        return view('home', compact('names','uploads'));
     }
 
     public function forsaleland()
@@ -116,12 +120,60 @@ class HomeController extends Controller
         return view('admin/index');
     }
     public function index()
-    {
-        return view('admin/index');
+{
+
+    if (!auth()->check()) {
+        return redirect()->route('login')->with('message', 'Please log in to access this page.');
     }
+
+    return view('admin.index');
+}
+
     public function contactform()
     {
         return view('contact/home');
     }
+    public function showLoginForm()
+    {
+        return view('login.login');
+    }
+
+    public function login(Request $request)
+    {
+        // Validate request data
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Attempt to authenticate the user
+        if (auth()->attempt($request->only('email', 'password'))) {
+            // Authentication successful, redirect to dashboard or any other page
+            return redirect()->route('home');
+        } else {
+            // Authentication failed, redirect back with error message
+            return back()->with('error', 'Invalid credentials. Please try again.');
+        }
+    }
+    public function register(Request $request)
+    {
+        // Validate request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Create a new user
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        // Redirect to login page with success message
+        return redirect()->route('login')->with('success', 'Registration successful. Please login.');
+    }
+
 }
 

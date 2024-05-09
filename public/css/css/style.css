@@ -829,7 +829,7 @@ a:hover,
 .btn-link,
 .btn-link:hover {
   text-decoration: none;
-  cousor: pointer;
+  cursor: pointer;
 }
 img {
   width: 100%;
@@ -1246,6 +1246,7 @@ blockquote {
   background-position: -20px -60px;
 }
 .jslider .jslider-pointer-to {
+    font-size:1px
 }
 .jslider .jslider-label {
   font-size: 9px;
@@ -2667,7 +2668,7 @@ Register page
 ===================================================*/
 
 /*====================================================
- Responsive Media Query CSS 
+ Responsive Media Query CSS
  ======================================================*/
 
 @media screen and (min-width: 1400) {

@@ -120,6 +120,27 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('financing.index') }}" class="nav-link">
+                    <i class="fas fa-award"></i>
+
+
+                    <p>Financing
+                        <span class="badge badge-info right"></span>
+                    </p>
+                </a>
+            </li>
+            <!-- If the user is authenticated, display the logout link -->
+            <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST" class="nav-link">
+                    @csrf
+                    <button type="submit" style="background-color: white; border: none;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </button>
+                </form>
+            </li>
+
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -133,26 +154,52 @@
 
 
     <style>
-    .sidebar {
-    position: sticky;
-    top: 0;
-    width: 250px; /* Set the width as needed */
-    max-width: 100%; /* Ensure it doesn't overflow horizontally */
-    height: 750px; /* Adjust height as needed */
-    overflow-y: auto;
-    padding-top: 20px; /* Adjust padding as needed */
-    padding-bottom: 20px; /* Adjust padding as needed */
-    margin-top: 10px; /* Adjust margin as needed */
-    margin-bottom: 10px; /* Adjust margin as needed */
+    .container {
+  position: relative;
 }
 
+#sidebar {
+  position: sticky;
+  top: 0;
+  width: 250px; /* Set the width as needed */
+  max-width: 100%; /* Ensure it doesn't overflow horizontally */
+  height: 100%; /* Adjust height as needed */
+  overflow-y: auto;
+  padding-top: 20px; /* Adjust padding as needed */
+  padding-bottom: 20px; /* Adjust padding as needed */
+  margin-top: 10px; /* Adjust margin as needed */
+  margin-bottom: 10px; /* Adjust margin as needed */
+}
 
 .sidebar .nav-item a {
-    font-size: 16px; /* Adjust font size as needed */
+  font-size: 16px; /* Adjust font size as needed */
 }
-
 
 
 
     </style>
 
+<script>
+    // Assuming you have some way to get the number of data entries in the table
+var numberOfEntries = /* Get the number of data entries */;
+
+// Assuming you have a function to update the sidebar based on the number of entries
+function updateSidebar() {
+  var sidebar = document.getElementById('sidebar');
+
+  // Check if the number of entries is greater than or equal to 10
+  if (numberOfEntries >= 10) {
+    sidebar.classList.add('sticky');
+  } else {
+    sidebar.classList.remove('sticky');
+  }
+}
+
+// Call the updateSidebar function when the page loads
+window.addEventListener('load', updateSidebar);
+
+// Call the updateSidebar function whenever the number of entries changes
+// For example, if you're adding/removing entries dynamically to the table
+// You need to call updateSidebar() every time the number of entries changes
+
+</script>
